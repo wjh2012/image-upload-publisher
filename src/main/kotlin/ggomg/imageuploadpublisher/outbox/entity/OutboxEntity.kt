@@ -4,6 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 class OutboxEntity(
+    @Column
     val message: String,
     @Enumerated(EnumType.STRING)
     val status: OutboxStatus,
@@ -11,6 +12,10 @@ class OutboxEntity(
 
 enum class OutboxStatus {
     PENDING,
+    PROCESSING,
     COMPLETED,
     FAILED,
+    EXPIRED,
+    CANCELED,
+    RETRYING
 }
