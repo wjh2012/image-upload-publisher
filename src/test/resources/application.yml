@@ -1,0 +1,24 @@
+spring:
+  application:
+    name:
+      upload-publisher
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.45.131:5432/image_produce
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+        generate_statistics: true
+
+  h2:
+    console:
+      enabled: true
