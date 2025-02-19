@@ -36,12 +36,16 @@ class OutboxRepositoryCustomImplTest {
     fun setup() {
         queryFactory = JPAQueryFactory(entityManager)
 
+        // 기존 데이터 삭제 추가
+        entityManager.createQuery("DELETE FROM OutboxEntity").executeUpdate()
+        entityManager.flush()
+        entityManager.clear()
+
         val entity1 = OutboxEntity(message = "hello_c", status = OutboxStatus.COMPLETED)
         val entity2 = OutboxEntity(message = "hello_f", status = OutboxStatus.FAILED)
 
         entityManager.persist(entity1)
         entityManager.persist(entity2)
-        entityManager.flush()
 
         (1..20).forEach {
             entityManager.persist(OutboxEntity(message = "hello$it", status = OutboxStatus.PENDING))
@@ -49,6 +53,7 @@ class OutboxRepositoryCustomImplTest {
         entityManager.flush()
         entityManager.clear()
     }
+
 
     @Test
     fun `PENDING 상태 데이터 조회`() {
